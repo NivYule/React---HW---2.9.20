@@ -17,6 +17,8 @@ import { StarColors } from "./components/rank"
 import Configuration from './components/configuration';
 import AddMovie from "./components/add-movie";
 import ServerFilter from './components/server-filter';
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
 // jsx element
 
 
@@ -104,14 +106,25 @@ function App() {
             <input onChange={({ target }) => setStarsColor((target as any).value)} />
         </div> */}
         <CustomHeader style={{ color: "green" }} text={"Movies"} />
-        <Row>
-            <Col>
-                <Filter filterOperation={filterOperation} clearFilter={getMoviesApi}/>
-            </Col>
-            <Col>
-                <ServerFilter filterOperation={setMoviesFromServer}/>
-            </Col>
-        </Row>
+        <Accordion defaultActiveKey="0">
+            <Card>
+                <Card.Header>
+                    <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                        Filter
+                    </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="1">
+                    <Card.Body>
+                        <Col>
+                            <Filter filterOperation={filterOperation} clearFilter={getMoviesApi}/>
+                        </Col>
+                        <Col>
+                            <ServerFilter filterOperation={setMoviesFromServer}/>
+                        </Col>
+                    </Card.Body>
+                </Accordion.Collapse>
+            </Card>
+        </Accordion>
         <br></br>
         <Row className="justify-content-md-center">
             <Button variant="danger" onClick={clearMovies} > Clear Movies</Button>
